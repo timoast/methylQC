@@ -25,7 +25,7 @@ install_github("timoast/methylqc")
 This package is also implemented in an interactive app built using [shiny](http://www.shinyapps.io/). To run the app locally, first make sure a few extra dependencies are installed:
 
 ```R
-install.packages(c("shiny", "ploty", "shinythemes"))
+install.packages(c("shiny", "ploty"))
 ```
 
 Then just run the app by executing the `app.R` script. This will open a browser window where you can interact with the data.

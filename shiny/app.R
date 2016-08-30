@@ -10,7 +10,7 @@ dat <- loadData(path="../data/example_data.CGmap.gz", datasource = "BSseeker2")
 chroms <- unique(dat$chr)
 m <- max(dat$position)
 
-ui <- fluidPage(theme = shinytheme("spacelab"),
+ui <- fluidPage(theme = "theme.css",
                 titlePanel("methylQC"),
                 sidebarLayout(
                   sidebarPanel(
