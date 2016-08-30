@@ -1,9 +1,7 @@
 library(shiny)
 library(ggplot2)
-library(dplyr)
 library(methylQC)
 library(plotly)
-library(moments)
 
 dat <- loadData(path="../data/example_data.CGmap.gz", datasource = "BSseeker2")
 chroms <- unique(dat$chr)
