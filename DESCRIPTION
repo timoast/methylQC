@@ -1,0 +1,16 @@
+Package: methylQC
+Title: Examine the Quality of Methylome Data
+Version: 0.0.0.9000
+Authors@R: person("Tim", "Stuart", email = "timstuart90@gmail.com", role = c("aut", "cre"))
+Description: Generage plots and statistics to summarize the quality of a methylome.
+Depends:
+    R (>= 3.3.1)
+License: GPL
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
+Imports: ggplot2,
+    readr,
+    dplyr,
+    moments,
+    broom
