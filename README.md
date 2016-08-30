@@ -23,7 +23,7 @@ install_github("timoast/methylqc")
 
 ## Interactive web app  
 
-This package is also implemented in an interactive app built using [shiny](http://www.shinyapps.io/). To run the app locally, first make sure a few extra dependencies are installed:
+This package is also implemented in an interactive app built using [shiny](http://shiny.rstudio.com/). To run the app locally, first make sure a few extra dependencies are installed:
 
 ```R
 install.packages(c("shiny", "ploty"))
