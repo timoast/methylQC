@@ -33,7 +33,7 @@ ui <- fluidPage(theme = "theme.css",
                   mainPanel(
                     tabsetPanel(type = "tabs",
                         tabPanel("About",
-                                 includeMarkdown("about.md")),
+                                 includeMarkdown("./text/about.md")),
                         tabPanel("Plots",
                             fluidRow(plotOutput("browser")),
                             fluidRow(plotlyOutput("survival")),
@@ -46,7 +46,11 @@ ui <- fluidPage(theme = "theme.css",
                               )
                             )
                           ),
-                        tabPanel("Statistics", tableOutput("stats")),
+                        tabPanel("Statistics", h3("Sequencing coverage"),
+                                 includeMarkdown("./text/statistics_coverage.md"),
+                                 tableOutput("stats"),
+                                 h3("Non-conversion rates"),
+                                 tableOutput("nonconversion")),
                         tabPanel("Data", tableOutput("dat"))
                     )
                 )
@@ -90,7 +94,7 @@ server <- function(input, output) {
       theme_bw() + ggtitle("Lambda chromosome sequencing depth")
   })
   
-  output$conversion <- renderTable({
+  output$nonconversion <- renderTable({
     l %>%
       group_by(context) %>%
       mutate(`Non-conversion rate` = sum(mC) / sum(depth) * 100) %>%

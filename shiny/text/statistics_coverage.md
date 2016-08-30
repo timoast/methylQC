@@ -1,0 +1,1 @@
+Summary of sequencing depth and uniformity. [Kurtosis](https://en.wikipedia.org/wiki/Kurtosis) is a measure of the "tailedness" of a distibution. The lower the kurtosis value, the more uniform the sequencing coverage.
