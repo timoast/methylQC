@@ -95,13 +95,7 @@ server <- function(input, output) {
   })
   
   output$nonconversion <- renderTable({
-    l %>%
-      group_by(context) %>%
-      mutate(`Non-conversion rate` = sum(mC) / sum(depth) * 100) %>%
-      select(context, `Non-conversion rate`) %>%
-      unique() %>%
-      filter(context %in% c("CG", "CHG", "CHH")) %>%
-      arrange(context)
+    nonConversion(dat)
   })
   
   output$survival <- renderPlotly({

@@ -21,7 +21,9 @@ library(methylQC)
 ```
 
 
-## Coverage  
+# Coverage  
+
+## Genome browser view
 
 `r input$chrom` between `r rv$start` and `r rv$end`
 
@@ -35,21 +37,27 @@ plotBrowser(rv$data, start = rv$start, stop = rv$end)
 plotSurvival(params$data, species = "arabidopsis", chromosome = "all")
 ```
 
-## Non-conversion rate
+## Summary statistics
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+methylomeStats(params$data) %>%
+  knitr::kable()
+```
+
+# Non-conversion rate
+
+## Lambda genome coverage
 
 ```{r lambda, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(params$l, aes(depth)) + geom_histogram(fill = "darkgreen", color="black") +
       theme_bw() + ggtitle("Lambda chromosome sequencing depth")
 ```
 
+## Non-conversion rates
+
 ```{r conversion, echo=FALSE, message=FALSE, warning=FALSE}
 params$l %>%
-      group_by(context) %>%
-      mutate(`Non-conversion rate` = sum(mC) / sum(depth) * 100) %>%
-      select(context, `Non-conversion rate`) %>%
-      unique() %>%
-      filter(context %in% c("CG", "CHG", "CHH")) %>%
-      arrange(context) %>%
+  nonConversion() %>%
   knitr::kable()
 ```
 
