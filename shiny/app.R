@@ -2,7 +2,6 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 library(methylQC)
-library(shinythemes)
 library(plotly)
 library(moments)
 
