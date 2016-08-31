@@ -3,9 +3,6 @@ library(ggplot2)
 library(methylQC)
 library(plotly)
 
-# dat <- loadData(path="../data/example_data.CGmap.gz", datasource = "BSseeker2")
-# chroms <- unique(dat$chr)
-# m <- max(dat$position)
 
 ui <- fluidPage(theme = "theme.css",
                 titlePanel("methylQC"),
@@ -38,8 +35,18 @@ server <- function(input, output) {
   # load the data. If user selects demo data, load from the demo file path
   dat <- reactive({
     file1 <- input$data
-    if (is.null(file1)){return()}
-    loadData("../data/example_data.CGmap.gz")
+    if(input$demo == TRUE) {
+      loadData("../data/example_data.CGmap.gz")
+    } else if(is.null(file1)){
+      return()
+    } else {
+      if(tools::file_ext(file1$name) == "gz"){
+        zipped = TRUE
+      } else {
+        zipped = FALSE
+      }
+      loadData(file1$datapath, forceZipped = zipped)
+    }
   })
   
   rv <- reactiveValues(data = observe(dat()), start = 2000, end = 5000)
