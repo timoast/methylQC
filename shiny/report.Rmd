@@ -33,7 +33,7 @@ plotBrowser(rv$data, start = rv$start, stop = rv$end)
 ## Covered cytosines
 
 ```{r cytosines, echo=FALSE, message=FALSE, warning=FALSE}
-plotSurvival(params$data(), species = "arabidopsis", chromosome = "all")
+plotSurvival(params$data, species = "arabidopsis", chromosome = "all")
 ```
 
 ## Summary statistics
@@ -48,7 +48,7 @@ methylomeStats(params$data) %>%
 ## Lambda genome coverage
 
 ```{r lambda, echo=FALSE, message=FALSE, warning=FALSE}
-l <- subset(params$l, params$l$chr == "L")
+l <- subset(params$data, params$data$chr == "L")
 ggplot(l, aes(depth)) + geom_histogram(fill = "darkgreen", color="black") +
       theme_bw() + ggtitle("Lambda chromosome sequencing depth")
 ```
