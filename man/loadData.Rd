@@ -4,15 +4,17 @@
 \alias{loadData}
 \title{Load Data}
 \usage{
-loadData(path, datasource = "BSseeker2")
+loadData(path, datasource = "BSseeker2", forceZipped = FALSE)
 }
 \arguments{
-\item{path}{Path to the data}
+\item{path}{Path to the data. Input can be gzipped or raw text.}
 
 \item{datasource}{Which bisulfite package was used? Defaults to BSseeker2}
+
+\item{forceZipped}{force data to be read as gzip. Default is to detect from the file extension.}
 }
 \value{
-a dataframe
+a datatable
 }
 \description{
 This function will load the dataset to be used in methylQC functions

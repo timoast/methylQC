@@ -14,7 +14,7 @@ install_github("timoast/methylqc")
 
 ### Functions
 
-* `loadData`: Loads a BSseeker2 CGmap file into memory. This just calls `readr::read_tsv` and gives each column the correct names.  
+* `loadData`: Loads a BSseeker2 CGmap file into memory. This just calls `data.table::fread` and gives each column the correct names.  
 * `plotBrowser`: Generate a genome browser view of sequencing coverage for a given genomic region.  
 * `plotSurvival`: Plot the diminishing percentage of all cytosines with increasing levels of sequencing depth.  
 * `methylomeStats`: Generate some summary statistics for the distribution of sequencing depth. This returns a dataframe with the quantiles, mean, and kurtosis (how "spiky" the coverage is).  
