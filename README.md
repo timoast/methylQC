@@ -19,6 +19,7 @@ install_github("timoast/methylqc")
 * `plotSurvival`: Plot the diminishing percentage of all cytosines with increasing levels of sequencing depth.  
 * `methylomeStats`: Generate some summary statistics for the distribution of sequencing depth. This returns a dataframe with the quantiles, mean, and kurtosis (how "spiky" the coverage is).  
 * `nonConversion`: Calculate the bisulfite non-conversion rates for each sequence context.  
+* `strandBias`: Calculate bias in sequencing depth towards either strand for each C position.  
 
 
 ## Interactive web app  
