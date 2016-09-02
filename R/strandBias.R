@@ -30,8 +30,8 @@ strandBias <- function(data, window = 30, fill = 0) {
   filled_cri$meanCovG[is.nan(filled_cri$meanCovG)] <- NA
   
   # intersect with original data
-  data <- dplyr::left_join(data, filled_wat)
-  data <- dplyr::left_join(data, filled_cri)
+  data <- dplyr::left_join(data, filled_wat, by = "position")
+  data <- dplyr::left_join(data, filled_cri, by = "position")
 
   # calculate bias at each position
   data <- dplyr::rowwise(data)
@@ -45,7 +45,7 @@ fillBases <- function(d) {
   mn <- min(d$position, na.rm = T)
   mx <- max(d$position, na.rm = T)
   newdf <- data.frame(position = seq(from = mn, to = mx), stringsAsFactors = F)
-  n <- dplyr::full_join(d, newdf)
+  n <- dplyr::full_join(d, newdf, by = "position")
   n <- dplyr::arrange(n, position)
   return(n)
 }
