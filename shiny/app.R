@@ -78,14 +78,18 @@ server <- function(input, output) {
       tabsetPanel(type = "tabs",
                   tabPanel("About", includeMarkdown("./text/about.md")),
                   tabPanel("Plots",
+                           h3("Browser"),
                            fluidRow(plotOutput("browser")),
+                           h3("Cytosine coverage"),
                            fluidRow(plotlyOutput("survival")),
                            fluidRow(
                              column(6,
+                                    h3("Total coverage"),
                                     plotOutput("hist")
                              ),
-                             column(6, plotOutput("lambdaCov"),
-                                    tableOutput("conversion")
+                             column(6,
+                                    h3("Lambda coverage"),
+                                    plotOutput("lambdaCov")
                              )
                            )
                   ),
