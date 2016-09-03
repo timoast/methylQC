@@ -10,8 +10,8 @@ cytosines <- function(data) {
   
   # regex for each context, each strand
   cg <- '(CG.)|(.CG)'
-  chg <- '(C[ATC]G)|(G[ATC]C)'
-  chh <- '(C[ATC]{2})|([ATC]{2}G)'
+  chg <- '(C[ATC]G)|(G[ATG]C)'
+  chh <- '(C[ATC]{2})|([ATG]{2}G)'
   
   # read fasta file
   fasta <- Biostrings::readDNAStringSet(data)
