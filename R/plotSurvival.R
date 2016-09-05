@@ -13,7 +13,7 @@
 plotSurvival <- function(data, cytosines, chromosome = "all") {
   # Get the total number of cytosines in each context for the chromosome we are looking at
   if(chromosome %in% c("lambda", "chrL", "L")) {
-    nC <- data.frame(cg = 5925, chg = 5385, chh = 11503)
+    nC <- data.frame(CG = 5925, CHG = 5385, CHH = 11503)
     d <- subset(data, chr == chromosome)
   } else if(chromosome == "all") {
     # take last row (sum of all cytosines)
@@ -36,7 +36,7 @@ plotSurvival <- function(data, cytosines, chromosome = "all") {
   temp <- dplyr::group_by(temp, depth)
   colnames(temp)[1] <- "n"
   temp <- dplyr::mutate(temp, count = sum(n), context = "all")
-  temp <- ungroup(temp)
+  temp <- dplyr::ungroup(temp)
   temp <- dplyr::select(temp, -n)
   temp <- unique(temp)
   temp$perc <- (temp$count / sum(nC)) * 100
