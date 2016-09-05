@@ -3,7 +3,6 @@ library(ggplot2)
 library(methylQC)
 library(plotly)
 
-
 ui <- fluidPage(theme = "theme.css",
                 titlePanel("methylQC"),
                 sidebarLayout(
@@ -81,26 +80,35 @@ server <- function(input, output) {
       tabsetPanel(type = "tabs",
                   tabPanel("About", includeMarkdown("./text/about.md")),
                   tabPanel("Plots",
-                           h3("Browser"),
-                           fluidRow(plotOutput("browser")),
-                           h3("Cytosine coverage"),
-                           fluidRow(plotlyOutput("survival")),
-                           fluidRow(
-                             column(6,
-                                    h3("Total coverage"),
-                                    plotOutput("hist")
-                             ),
-                             column(6,
-                                    h3("Lambda coverage"),
-                                    plotOutput("lambdaCov")
-                             )
-                           )
+                           fluidRow(h3("Browser"),
+                                    plotOutput("browser")),
+                           fluidRow(h3("Cytosine coverage"),
+                                    plotlyOutput("survival")),
+                           fluidRow(h3("Sequencing depth"),
+                                    column(10,
+                                    plotOutput("hist")),
+                                    column(2,
+                                    numericInput(inputId = "covbreaks",
+                                                 label = "Breaks", value = 50, min = 1, max = 1000),
+                                    numericInput(inputId = "covlim", label = "xlim", value = NA, min = 1))),
+                           fluidRow(h3("Strand bias"),
+                                    column(10,
+                                    plotOutput("biasplot")),
+                                    column(2,
+                                    numericInput(inputId = "biasbreaks",
+                                                 label = "Breaks", value = 50, min = 1, max = 1000),
+                                    numericInput(inputId = "biaslim", label = "xlim", value = NA, min = 1)))
                   ),
-                  tabPanel("Statistics", h3("Sequencing coverage"),
+                  tabPanel("Statistics",
+                           h3("Sequencing depth"),
                            includeMarkdown("./text/statistics_coverage.md"),
                            tableOutput("stats"),
+                           h3("Sequencing coverage"),
+                           tableOutput("coveragestats"),
                            h3("Non-conversion rates"),
-                           tableOutput("nonconversion")),
+                           tableOutput("nonconversion"),
+                           h3("Strand bias"),
+                           tableOutput("biastable")),
                   tabPanel("Data", tableOutput("headData"))
                   )
     }
@@ -119,25 +127,29 @@ server <- function(input, output) {
     rv$data[sample(nrow(rv$data), 5000, replace = F),]
   })
   
-  # Create density plot showing distibution of sequencing depth
-  output$hist <- renderPlot({
+  biasChunk <- eventReactive(rv$data, {
     if (is.null(dat())){return()}
-    med <- median(d()$depth)
-    ggplot(d(), aes(depth)) +  geom_density(fill="blue", alpha = 0.8) + theme_bw() +
-      geom_vline(xintercept = med) + ggtitle(paste("Sequencing depth for ", as.character(input$chrom)))
+    if(nrow(rv$data) < 100000) {
+      rv$data[100:nrow(rv$data),]
+    } else {
+      rv$data[1000:100000,]
+    }
+  })
+  
+  bias <- eventReactive(biasChunk(), {
+    if (is.null(dat())){return()}
+    strandBias(biasChunk())
+  })
+  
+  survival <- eventReactive(rv$data, {
+    if (is.null(dat())){return()}
+    coverageSurvival(rv$data, cytosines, input$chrom)
   })
   
   # Create summary statistics based on input data
   output$stats <- renderTable({
     if (is.null(dat())){return()}
     methylomeStats(dat())
-  })
-  
-  # Plot coverage of the lambda chromsome
-  output$lambdaCov <- renderPlot({
-    if (is.null(dat())){return()}
-    ggplot(subset(dat(), dat()$chr == "L"), aes(depth)) + geom_histogram(fill = "darkgreen", color="black") +
-      theme_bw() + ggtitle("Lambda chromosome sequencing depth")
   })
   
   # Generate the non-conversion statistics
@@ -149,7 +161,46 @@ server <- function(input, output) {
   # Create survival plot for the chosen chromosome
   output$survival <- renderPlotly({
     if (is.null(dat())){return()}
-    ggplotly(plotSurvival(rv$data, cytosines = cytosines, chromosome = input$chrom))
+    ggplotly(plotCoverage(survival()))
+  })
+  
+  output$coveragestats <- renderTable({
+    if (is.null(dat())){return()}
+    cc <- dplyr::filter(survival(), depth %in% c(1, 5, 10))
+    tidyr::spread(cc, depth, Cytosines)
+  })
+  
+  # Plot histogram of sequencing depth
+  output$hist <- renderPlot({
+    if (is.null(dat())){return()}
+    if(is.na(input$covlim)){
+      h <- hist(d()$depth, plot = F)
+      xl <- range(h$breaks)
+    } else {
+      xl <- c(0, input$covlim)
+    }
+    hist(d()$depth, col = "orangered3",
+         main = paste("Sequencing depth for ", as.character(input$chrom)),
+         breaks = input$covbreaks, xlim = xl, xlab = "Depth")
+  })
+  
+  output$biasplot <- renderPlot({
+    if (is.null(dat())){return()}
+    if(is.na(input$biaslim)) {
+      h <- hist(bias()$strandBias, plot = FALSE)
+      xl <- range(h$breaks)
+    } else {
+      xl <- c(-input$biaslim, input$biaslim)
+    }
+    hist(bias()$strandBias, col = "lightblue",
+         breaks = input$biasbreaks, xlab = "Strand bias",
+         xlim = xl, main = paste("Strand bias for ", as.character(input$chrom)))
+  })
+  
+  output$biastable <- renderTable({
+    if (is.null(dat())){return()}
+    b <- broom::tidy(summary(bias()$strandBias))
+    cbind(b, data.frame(standardDeviation = sd(bias()$strandBias, na.rm = T)))
   })
   
   # Show the first 50 rows of the input data (shown in data tab)
