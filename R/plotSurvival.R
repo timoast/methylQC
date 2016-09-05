@@ -25,6 +25,8 @@ plotSurvival <- function(data, cytosines, chromosome = "all") {
     d <- subset(data, chr == chromosome)
   }
   
+  d <- subset(d, d$context != "--")
+
   # Count the coverage for each cytosine in each context
   d <- dplyr::group_by(d, depth, context)
   d <- dplyr::mutate(d, count = n())
@@ -41,7 +43,7 @@ plotSurvival <- function(data, cytosines, chromosome = "all") {
   temp <- unique(temp)
   temp$perc <- (temp$count / sum(nC)) * 100
   temp <- dplyr::select(temp, depth, context, perc)
-  
+
   d$perc <- d$count / ifelse(d$context == "CG", nC$CG, ifelse(d$context == "CHG", nC$CHG, nC$CHH)) * 100
   d <- dplyr::select(d, depth, context, perc)
   d <- unique(d)
