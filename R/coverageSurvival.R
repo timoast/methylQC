@@ -14,11 +14,11 @@ coverageSurvival <- function(data, cytosines, chromosome = "all") {
   # Get the total number of cytosines in each context for the chromosome we are looking at
   if(chromosome %in% c("lambda", "chrL", "L")) {
     nC <- data.frame(CG = 5925, CHG = 5385, CHH = 11503)
-    d <- subset(data, chr == chromosome)
+    d <- subset(data, data$chr == chromosome)
   } else if(chromosome == "all") {
     # take last row (sum of all cytosines)
     nC <- cytosines[nrow(cytosines),]
-    d <- data
+    d <- subset(data, !(data$chr %in% c("L", "chrL", "lambda")) 
   } else {
     id <- as.numeric(unlist(strsplit(chromosome, "chr"))[[2]])
     nC <- cytosines[id,]
