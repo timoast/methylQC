@@ -29,6 +29,9 @@ ui <- fluidPage(theme = "theme.css",
 )
 
 server <- function(input, output) {
+  # read cytosine counts for Arabidopsis. Will need to change later to user input
+  cytosines <- read.table("../data/arabidopsis.tsv", header = T)
+  
   # change the max file size to 1 GB
   options(shiny.maxRequestSize=1000*1024^2)
   
@@ -146,7 +149,7 @@ server <- function(input, output) {
   # Create survival plot for the chosen chromosome
   output$survival <- renderPlotly({
     if (is.null(dat())){return()}
-    ggplotly(plotSurvival(rv$data, species = "arabidopsis", chromosome = input$chrom))
+    ggplotly(plotSurvival(rv$data, cytosines = cytosines, chromosome = input$chrom))
   })
   
   # Show the first 50 rows of the input data (shown in data tab)
@@ -174,7 +177,7 @@ server <- function(input, output) {
       file.copy(src, 'report.Rmd')
       
       out <- rmarkdown::render('report.Rmd',
-                               params = list(data = dat()),
+                               params = list(data = dat(), cytosines = cytosines),
         switch(
         input$format,
         PDF = rmarkdown::pdf_document(), HTML = rmarkdown::html_document()
