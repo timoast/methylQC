@@ -4,12 +4,12 @@
 \alias{plotSurvival}
 \title{Plot Survival}
 \usage{
-plotSurvival(data, species = "Arabidopsis", chromosome = "all")
+plotSurvival(data, cytosines, chromosome = "all")
 }
 \arguments{
 \item{data}{A dataframe}
 
-\item{species}{Species name. Defaults to Arabidopsis}
+\item{cytosines}{Dataframe with cytosine counts. Can be generated using methylQC::cytosines()}
 
 \item{chromosome}{Chromosome number. Defaults to all (all chromosomes)}
 }
@@ -20,6 +20,8 @@ ggplot2 plot object
 Plot the diminishing percentage of cytosines with increasing sequencing depth
 }
 \examples{
-plotBrowser(dat)
+data <- loadData("methylome.CGmap")
+cytosines <- cytosines("genome.fa")
+plotSurvival(data, cytosines, chromosome = "chr1")
 }
 
