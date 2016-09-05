@@ -1,16 +1,16 @@
-#' Plot Survival
+#' Coverage Survival
 #'
-#' Plot the diminishing percentage of cytosines with increasing sequencing depth
+#' Find the diminishing percentage of cytosines with increasing sequencing depth
 #' @param data A dataframe
 #' @param cytosines Dataframe with cytosine counts. Can be generated using methylQC::cytosines()
 #' @param chromosome Chromosome number. Defaults to all (all chromosomes)
 #' @export
-#' @return ggplot2 plot object
+#' @return a dataframe
 #' @examples
 #' data <- loadData("methylome.CGmap")
 #' cytosines <- cytosines("genome.fa")
-#' plotSurvival(data, cytosines, chromosome = "chr1")
-plotSurvival <- function(data, cytosines, chromosome = "all") {
+#' coverage <- coverageSurvival(data, cytosines, chromosome = "chr1")
+coverageSurvival <- function(data, cytosines, chromosome = "all") {
   # Get the total number of cytosines in each context for the chromosome we are looking at
   if(chromosome %in% c("lambda", "chrL", "L")) {
     nC <- data.frame(CG = 5925, CHG = 5385, CHH = 11503)
@@ -52,16 +52,8 @@ plotSurvival <- function(data, cytosines, chromosome = "all") {
   d <- rbind(d, temp)
   d <- dplyr::arrange(d, depth)
   d <- convertSurvival(d)
-
-  cg <- '#B4B464'
-  chg <- '#6665AD'
-  chh <- '#B29492'
   
-  p <- ggplot2::ggplot(d, aes(depth, Cytosines, color = Context)) +
-    geom_line() + geom_point() + scale_color_manual(values = c("black", cg, chg, chh)) +
-    theme_bw() + ylab("Percentage of Cytosines") +
-    ylim(c(0, 100)) + xlim(c(0, 100))
-  return(p)
+  return(d)
 }
 
 # Convert counts of coverage levels (eg 1000 C sites with coverage == 12x coverage)
