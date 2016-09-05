@@ -20,6 +20,7 @@ a dataframe
 This function will calculate the strand depth bias for each C base position
 }
 \examples{
+data <- loadData("methylome.CGmap")
 strandBias(data)
 }
 

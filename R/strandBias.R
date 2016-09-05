@@ -7,6 +7,7 @@
 #' @export
 #' @return a dataframe
 #' @examples
+#' data <- loadData("methylome.CGmap")
 #' strandBias(data)
 strandBias <- function(data, window = 30, fill = 0) {
   data$depth <- ifelse(data$base == "G", -(data$depth), data$depth)
