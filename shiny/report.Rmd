@@ -3,6 +3,7 @@ title: "methylQC Report"
 output: html_document
 params:
   data: NA
+  cytosines: NA
 ---
 
 ```{r eval = FALSE, echo = FALSE}
@@ -33,7 +34,7 @@ plotBrowser(rv$data, start = rv$start, stop = rv$end)
 ## Covered cytosines
 
 ```{r cytosines, echo=FALSE, message=FALSE, warning=FALSE}
-plotSurvival(params$data, species = "arabidopsis", chromosome = "all")
+plotSurvival(params$data, cytosines = params$cytosines, chromosome = "all")
 ```
 
 ## Summary statistics
