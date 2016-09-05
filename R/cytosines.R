@@ -9,7 +9,7 @@
 cytosines <- function(data) {
   
   # regex for each context, each strand
-  cg <- '(CG.)|(.CG)'
+  cg <- '(CG.)|(.GC)'
   chg <- '(C[ATC]G)|(G[ATG]C)'
   chh <- '(C[ATC]{2})|([ATG]{2}G)'
   
@@ -31,7 +31,7 @@ cytosines <- function(data) {
   sum_cg <- rowSums(cg_info)
   sum_chg <- rowSums(chg_info)
   sum_chh <- rowSums(chh_info)
-  all <- data.frame(cg = sum_cg, chg = sum_chg, chh = sum_chh)
+  all <- data.frame(CG = sum_cg, CHG = sum_chg, CHH = sum_chh)
   all <- rbind(all, colSums(all))
   
   return(all)
