@@ -228,7 +228,7 @@ server <- function(input, output) {
       file.copy(src, 'report.Rmd')
       
       out <- rmarkdown::render('report.Rmd',
-                               params = list(data = dat(), cytosines = cytosines),
+                               params = list(data = dat(), cytosines = cytosines, depth = d()$depth),
         switch(
         input$format,
         PDF = rmarkdown::pdf_document(), HTML = rmarkdown::html_document()

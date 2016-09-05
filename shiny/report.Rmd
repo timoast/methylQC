@@ -4,6 +4,7 @@ output: html_document
 params:
   data: NA
   cytosines: NA
+  depth: NA
 ---
 
 ```{r eval = FALSE, echo = FALSE}
@@ -31,17 +32,28 @@ library(methylQC)
 plotBrowser(rv$data, start = rv$start, stop = rv$end)
 ```
 
-## Covered cytosines
+## Sequencing depth
 
-```{r cytosines, echo=FALSE, message=FALSE, warning=FALSE}
-plotSurvival(params$data, cytosines = params$cytosines, chromosome = "all")
+```{r depth, echo=FALSE, message=FALSE, warning=FALSE}
+hist(params$depth, col = "orangered3",
+         main = paste("Sequencing depth for ", as.character(input$chrom)), xlab = "Depth")
 ```
-
-## Summary statistics
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 methylomeStats(params$data) %>%
   knitr::kable()
+```
+
+## Covered cytosines
+
+```{r cytosines, echo=FALSE, message=FALSE, warning=FALSE}
+survival <- coverageSurvival(rv$data, cytosines = params$cytosines)
+plotCoverage(survival)
+```
+
+```{r coverage, echo=FALSE, message=FALSE, warning=FALSE}
+cc <- dplyr::filter(survival, depth %in% c(1, 5, 10))
+tidyr::spread(cc, depth, Cytosines) %>% knitr::kable()
 ```
 
 # Non-conversion rate
