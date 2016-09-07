@@ -5,6 +5,7 @@ params:
   data: NA
   cytosines: NA
   depth: NA
+  bias: NA
 ---
 
 ```{r eval = FALSE, echo = FALSE}
@@ -54,6 +55,19 @@ plotCoverage(survival)
 ```{r coverage, echo=FALSE, message=FALSE, warning=FALSE}
 cc <- dplyr::filter(survival, depth %in% c(1, 5, 10))
 tidyr::spread(cc, depth, Cytosines) %>% knitr::kable()
+```
+
+# Strand bias
+
+```{r strand_bias, echo=FALSE, message=FALSE, warning=FALSE}
+hist(params$bias, col = "lightblue",
+     breaks = input$biasbreaks, xlab = "Strand bias",
+     main = paste("Strand bias for ", as.character(input$chrom)))
+```
+
+```{r bias_table, echo=FALSE, message=FALSE, warning=FALSE}
+b <- broom::tidy(summary(params$bias))
+cbind(b, data.frame(standardDeviation = sd(params$bias, na.rm = T))) %>% knitr::kable()
 ```
 
 # Non-conversion rate
