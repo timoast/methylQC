@@ -1,6 +1,6 @@
 Package: methylQC
 Title: Examine the Quality of Methylome Data
-Version: 0.0.20
+Version: 0.0.21
 Date: 2016-09-07
 Authors@R: person("Tim", "Stuart", email = "timstuart90@gmail.com",
         role = c("aut", "cre"))
