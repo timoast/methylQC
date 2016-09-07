@@ -30,7 +30,7 @@ library(methylQC)
 `r input$chrom` between `r rv$start` and `r rv$end`
 
 ```{r browser, echo=FALSE, message=FALSE, warning=FALSE}
-plotBrowser(rv$data, start = rv$start, stop = rv$end)
+plotBrowser(params$data, start = rv$start, stop = rv$end)
 ```
 
 ## Sequencing depth
