@@ -7,7 +7,7 @@ Install from github
 
 ```R
 # install.packages("devtools")
-install_github("timoast/methylqc")
+devtools::install_github("timoast/methylqc")
 ```
 
 ## Package overview
@@ -32,4 +32,4 @@ This package is also implemented in an interactive app built using [shiny](http:
 install.packages(c("shiny", "ploty"))
 ```
 
-Then just run the app by running the `app.R` script. This will open a browser window where you can interact with the data.
+Then just run the app by either running `R -e "shiny::runApp('./app.R')"` on the command line, or by running `runApp('methylQC/shiny')` within R. If you use RStudio, you will also be able to run by opening the `app.R` script and pressing the 'Run app' button. This will open a browser window where you can interact with the data.
