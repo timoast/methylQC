@@ -25,8 +25,8 @@ devtools::install_github("timoast/methylqc")
 
 ### Data
 
-`methylome`: A small test dataset including sequencing data for the lambda genome and the first ~1 million cytosines of Arabidopsis chromosome 1.  
-`arabidopsis`: Cytosine information for the Arabidopsis genome.
+* `methylome`: A small test dataset including sequencing data for the lambda genome and the first ~1 million cytosines of Arabidopsis chromosome 1.  
+* `arabidopsis`: Cytosine information for the Arabidopsis genome.
 
 ## Interactive web app  
 
