@@ -23,6 +23,10 @@ devtools::install_github("timoast/methylqc")
 * `nonConversion`: Calculate the bisulfite non-conversion rates for each sequence context.  
 * `strandBias`: Calculate bias in sequencing depth towards either strand for each C position.  
 
+### Data
+
+`methylome`: A small test dataset including sequencing data for the lambda genome and the first ~1 million cytosines of Arabidopsis chromosome 1.  
+`arabidopsis`: Cytosine information for the Arabidopsis genome.
 
 ## Interactive web app  
 
