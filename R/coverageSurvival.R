@@ -7,9 +7,7 @@
 #' @export
 #' @return a dataframe
 #' @examples
-#' data <- loadData("methylome.CGmap")
-#' cytosines <- cytosines("genome.fa")
-#' coverage <- coverageSurvival(data, cytosines, chromosome = "chr1")
+#' coverage <- coverageSurvival(data = methylome, cytosines = arabidopsis, chromosome = "chr1")
 coverageSurvival <- function(data, cytosines, chromosome = "all") {
   # Get the total number of cytosines in each context for the chromosome we are looking at
   if(chromosome %in% c("lambda", "chrL", "L")) {
