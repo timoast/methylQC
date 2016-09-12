@@ -8,7 +8,8 @@
 #' @export
 #' @return a datatable
 #' @examples
-#' loadData("data-raw/methylome.CGmap.gz")
+#' path <- system.file("extdata", "methylome.CGmap.gz", package = "methylQC")
+#' loadData(path)
 loadData <- function(path, datasource="BSseeker2", forceZipped = FALSE) {
   header <- c("chr", "base", "position", "context", "twoBaseContext", "mC", "C", "depth")
   if(forceZipped == TRUE){

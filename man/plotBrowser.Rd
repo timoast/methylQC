@@ -4,14 +4,14 @@
 \alias{plotBrowser}
 \title{Plot Browser}
 \usage{
-plotBrowser(dat, start = 5000, stop = 15000)
+plotBrowser(data, start = 5000, stop = 15000)
 }
 \arguments{
-\item{start}{The start position. Defaults to 5000}
-
 \item{data}{A dataframe}
 
-\item{start}{The stop position. Defaults to 15000}
+\item{start}{The start position. Defaults to 5000}
+
+\item{stop}{The stop position. Defaults to 15000}
 }
 \value{
 ggplot2 object

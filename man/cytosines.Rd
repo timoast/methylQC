@@ -16,6 +16,7 @@ a dataframe
 Count the number of cytosines in each sequence context, for each chromosome
 }
 \examples{
-cytosines("data-raw/lambda.fasta")
+path <- system.file("extdata", "lambda.fasta", package = "methylQC")
+cytosines(path)
 }
 

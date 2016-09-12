@@ -5,7 +5,8 @@
 #' @export
 #' @return a dataframe
 #' @examples
-#' cytosines("data-raw/lambda.fasta")
+#' path <- system.file("extdata", "lambda.fasta", package = "methylQC")
+#' cytosines(path)
 cytosines <- function(data) {
   if (!file.exists(data)) stop("File does not exist")
   
