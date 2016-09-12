@@ -5,7 +5,7 @@
 #' @export
 #' @return a dataframe
 #' @examples
-#' nonConversion(data)
+#' nonConversion(methylome)
 nonConversion <- function(data) {
   d <- dplyr::filter(data, chr == "L")
   d <- dplyr::group_by(d, context)

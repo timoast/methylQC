@@ -5,7 +5,7 @@
 #' @export
 #' @return a dataframe
 #' @examples
-#' methylomeStats(dat)
+#' methylomeStats(methylome)
 methylomeStats <- function(data) {
   s <- broom::tidy(summary(data$depth))
   k <- moments::kurtosis(data$depth)

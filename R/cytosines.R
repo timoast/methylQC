@@ -5,8 +5,9 @@
 #' @export
 #' @return a dataframe
 #' @examples
-#' cytosines("./genome.fa")
+#' cytosines("data-raw/lambda.fasta")
 cytosines <- function(data) {
+  if (!file.exists(data)) stop("File does not exist")
   
   # regex for each context, each strand
   cg <- '(CG.)|(.GC)'

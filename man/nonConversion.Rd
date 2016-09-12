@@ -16,6 +16,6 @@ a dataframe
 Calculate the bisulfite non-conversion rate
 }
 \examples{
-nonConversion(data)
+nonConversion(methylome)
 }
 

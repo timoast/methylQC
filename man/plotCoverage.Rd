@@ -16,9 +16,7 @@ a ggplot2 object
 Plot the diminishing percentage of cytosines with increasing sequencing depth
 }
 \examples{
-data <- loadData("methylome.CGmap")
-cytosines <- cytosines("genome.fa")
-coverage <- coverageSurvival(data, cytosines, chromosome = "chr1")
+coverage <- coverageSurvival(data = methylome, cytosines = arabidopsis, chromosome = "L")
 plotCoverage(coverage)
 }
 

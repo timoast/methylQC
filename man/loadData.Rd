@@ -20,7 +20,7 @@ a datatable
 This function will load the dataset to be used in methylQC functions
 }
 \examples{
-loadData("~/Documents/mC_data.CGmap.gz")
+loadData("data-raw/methylome.CGmap.gz")
 }
 \keyword{data}
 

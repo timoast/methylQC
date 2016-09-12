@@ -7,8 +7,7 @@
 #' @export
 #' @return ggplot2 object
 #' @examples
-#' plotBrowser(dat)
-
+#' plotBrowser(methylome)
 plotBrowser <- function(dat, start=5000, stop=15000) {
   # filter to get the specified region (assuming single chromosome)
   d <- dplyr::filter_(dat, ~position > start, ~position < stop)

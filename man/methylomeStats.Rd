@@ -16,6 +16,6 @@ a dataframe
 Generate summary statistics for methylome data
 }
 \examples{
-methylomeStats(dat)
+methylomeStats(methylome)
 }
 

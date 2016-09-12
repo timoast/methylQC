@@ -20,6 +20,6 @@ ggplot2 object
 This function will plot a browser view of sequencing coverage
 }
 \examples{
-plotBrowser(dat)
+plotBrowser(methylome)
 }
 

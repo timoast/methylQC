@@ -16,6 +16,6 @@ a dataframe
 Count the number of cytosines in each sequence context, for each chromosome
 }
 \examples{
-cytosines("./genome.fa")
+cytosines("data-raw/lambda.fasta")
 }
 

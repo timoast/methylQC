@@ -5,11 +5,8 @@
 #' @export
 #' @return a ggplot2 object
 #' @examples
-#' data <- loadData("methylome.CGmap")
-#' cytosines <- cytosines("genome.fa")
-#' coverage <- coverageSurvival(data, cytosines, chromosome = "chr1")
+#' coverage <- coverageSurvival(data = methylome, cytosines = arabidopsis, chromosome = "L")
 #' plotCoverage(coverage)
-
 plotCoverage <- function(data) {
   cg <- '#B4B464'
   chg <- '#6665AD'
