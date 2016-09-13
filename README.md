@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/timoast/methylQC.svg?branch=master)](https://travis-ci.org/timoast/methylQC)
+
+
 # methylQC
 Quality control for methylome data
 
