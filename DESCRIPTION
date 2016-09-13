@@ -1,7 +1,7 @@
 Package: methylQC
 Type: Package
 Title: Examine the Quality of Methylome Data
-Version: 0.0.43
+Version: 0.0.44
 Date: 2016-09-13
 Author: Tim Stuart
 Maintainer: Tim Stuart <timstuart90@gmail.com>
@@ -15,3 +15,5 @@ LazyData: true
 RoxygenNote: 5.0.1
 Imports: ggplot2, zoo, data.table, dplyr, moments, broom, Biostrings,
         tidyr
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr

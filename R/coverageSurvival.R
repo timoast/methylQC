@@ -9,7 +9,7 @@
 #' @examples
 #' coverage <- coverageSurvival(data = methylome, cytosines = arabidopsis, chromosome = "chr1")
 coverageSurvival <- function(data, cytosines, chromosome = "all") {
-  # Get the total number of cytosines in each context for the chromosome we are looking at
+  # Get the total number of cytosines in each context for the chromosome
   if(chromosome %in% c("lambda", "chrL", "L")) {
     nC <- data.frame(CG = 5925, CHG = 5385, CHH = 11503)
     d <- subset(data, data$chr == chromosome)
@@ -42,7 +42,8 @@ coverageSurvival <- function(data, cytosines, chromosome = "all") {
   temp$perc <- (temp$count / sum(nC)) * 100
   temp <- dplyr::select(temp, depth, context, perc)
 
-  d$perc <- d$count / ifelse(d$context == "CG", nC$CG, ifelse(d$context == "CHG", nC$CHG, nC$CHH)) * 100
+  d$perc <- d$count / ifelse(d$context == "CG", nC$CG,
+                             ifelse(d$context == "CHG", nC$CHG, nC$CHH)) * 100
   d <- dplyr::select(d, depth, context, perc)
   d <- unique(d)
   
@@ -60,10 +61,10 @@ convertSurvival <- function(d) {
   temp <- tidyr::spread(d, context, perc)
   lim <- nrow(temp)
   for(i in 1:nrow(temp)) {
-    temp[i,"totAll"] <- sum(temp[i:lim,2], na.rm = T)
-    temp[i,"totCG"] <- sum(temp[i:lim,3], na.rm = T)
-    temp[i,"totCHG"] <- sum(temp[i:lim,4], na.rm = T)
-    temp[i,"totCHH"] <- sum(temp[i:lim,5], na.rm = T)
+    temp[i,"totAll"] <- sum(temp[i:lim,2], na.rm = TRUE)
+    temp[i,"totCG"] <- sum(temp[i:lim,3], na.rm = TRUE)
+    temp[i,"totCHG"] <- sum(temp[i:lim,4], na.rm = TRUE)
+    temp[i,"totCHH"] <- sum(temp[i:lim,5], na.rm = TRUE)
   }
   temp <- dplyr::select(temp, -(all:CHH))
   temp <- tidyr::gather(temp, Context, Cytosines, totAll:totCHH)

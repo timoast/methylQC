@@ -20,9 +20,13 @@ strandBias <- function(data, window = 30, fill = 0) {
   filled_cri <- fillBases(cri)
 
   # calculate rolling mean for every position
-  filled_wat$meanCovC <- zoo::rollapply(filled_wat$depth, width = window, mean, fill = fill, na.rm = T)
+  filled_wat$meanCovC <- zoo::rollapply(filled_wat$depth,
+                                        width = window, mean,
+                                        fill = fill, na.rm = TRUE)
   filled_wat <- dplyr::select(filled_wat, position, meanCovC)
-  filled_cri$meanCovG <- zoo::rollapply(filled_cri$depth, width = window, mean, fill = fill, na.rm = T)
+  filled_cri$meanCovG <- zoo::rollapply(filled_cri$depth,
+                                        width = window, mean,
+                                        fill = fill, na.rm = TRUE)
   filled_cri <- dplyr::select(filled_cri, position, meanCovG)
   
   # Convert NaN to NA
@@ -42,9 +46,10 @@ strandBias <- function(data, window = 30, fill = 0) {
 }
 
 fillBases <- function(d) {
-  mn <- min(d$position, na.rm = T)
-  mx <- max(d$position, na.rm = T)
-  newdf <- data.frame(position = seq(from = mn, to = mx), stringsAsFactors = F)
+  mn <- min(d$position, na.rm = TRUE)
+  mx <- max(d$position, na.rm = TRUE)
+  newdf <- data.frame(position = seq(from = mn, to = mx),
+                      stringsAsFactors = FALSE)
   n <- dplyr::full_join(d, newdf, by = "position")
   n <- dplyr::arrange(n, position)
   return(n)

@@ -24,10 +24,12 @@ plotBrowser <- function(data, start=5000, stop=15000) {
   # make plots
   p <- ggplot(d, aes(position, depth, base)) +
     geom_hline(yintercept = 0, color="grey") +
-    geom_hline(yintercept = c(pos_median, neg_median), color="grey", linetype=2) +
+    geom_hline(yintercept = c(pos_median, neg_median),
+               color="grey", linetype=2) +
     geom_line(aes(color = base)) + theme_classic() +
     scale_color_manual(values = c(color, color)) +
-    geom_smooth(se = F, span = 1/10, method = "loess", color="red", size=1/2) +
+    geom_smooth(se = FALSE, span = 1/10, method = "loess",
+                color="red", size=1/2) +
     theme(legend.position = "none") +
     ggtitle("Coverage")
   

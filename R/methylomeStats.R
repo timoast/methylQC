@@ -9,5 +9,5 @@
 methylomeStats <- function(data) {
   s <- broom::tidy(summary(data$depth))
   k <- moments::kurtosis(data$depth)
-  return(cbind(s, data.frame(stringsAsFactors = F, kurtosis = k)))
+  return(cbind(s, data.frame(stringsAsFactors = FALSE, kurtosis = k)))
 }

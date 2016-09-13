@@ -11,16 +11,20 @@
 #' path <- system.file("extdata", "methylome.CGmap.gz", package = "methylQC")
 #' loadData(path)
 loadData <- function(path, datasource="BSseeker2", forceZipped = FALSE) {
-  header <- c("chr", "base", "position", "context", "twoBaseContext", "mC", "C", "depth")
+  header <- c("chr", "base", "position", "context",
+              "twoBaseContext", "mC", "C", "depth")
   if(forceZipped == TRUE){
-    dat <- data.table::fread(paste('gzip -dc ', path), header = TRUE, col.names = header)
+    dat <- data.table::fread(paste('gzip -dc ', path),
+                             header = TRUE, col.names = header)
     return(dat)
   }
   ext <- tools::file_ext(path)
   if(ext == "gz"){
-    dat <- data.table::fread(paste('gzip -dc ', path), header = TRUE, col.names = header)
+    dat <- data.table::fread(paste('gzip -dc ', path),
+                             header = TRUE, col.names = header)
   } else {
-    dat <- data.table::fread(path, sep = "\t", header = TRUE, col.names = header)
+    dat <- data.table::fread(path, sep = "\t",
+                             header = TRUE, col.names = header)
   }
   return(dat)
 }
