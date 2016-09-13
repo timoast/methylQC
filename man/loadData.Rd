@@ -20,8 +20,9 @@ a datatable
 This function will load the dataset to be used in methylQC functions
 }
 \examples{
-path <- system.file("extdata", "methylome.CGmap.gz", package = "methylQC")
-loadData(path)
+\dontrun{
+loadData("methylome.CGmap.gz")
+}
 }
 \keyword{data}
 
