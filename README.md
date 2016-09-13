@@ -34,5 +34,5 @@ devtools::install_github("timoast/methylqc")
 ## Interactive web app  
 
 This package is also implemented in an interactive app built using [shiny](http://shiny.rstudio.com/), available here:  
-* [code](https://github.com/timoast/methylQC)  
+* [code](https://github.com/timoast/methylQC-shiny)  
 * [demo](https://timoast.shinyapps.io/shiny/)
